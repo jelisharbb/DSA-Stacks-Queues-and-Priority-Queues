@@ -13,7 +13,10 @@ print(fifo.dequeue())
 print(fifo.dequeue())
 
 
-# another way 
+# another way of adding elements
 fifo = Queue("1st", "2nd", "3rd")
-print()
-print(f"Number of elements: {len(fifo)}")
+print(f"\nNumber of elements: {len(fifo)}")
+
+# printing all elements
+for elements in fifo:
+    print(elements)
