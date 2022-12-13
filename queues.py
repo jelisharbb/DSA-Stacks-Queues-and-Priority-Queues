@@ -1,7 +1,7 @@
 from collections import deque
 
 class Queue:
-    # 
+    # for initializing/preparing the deque
     def __init__(self, *elements):
         self._elements = deque(elements)
 
@@ -21,3 +21,7 @@ class Queue:
     # for removing element
     def dequeue(self):
         return self._elements.popleft()
+
+class Stack(Queue):
+    def dequeue(self):
+        return self._elements.pop()
