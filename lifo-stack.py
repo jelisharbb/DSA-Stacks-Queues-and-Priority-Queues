@@ -1,3 +1,4 @@
+# get the Stack class from queues.py
 from queues import Stack
 
 # add elements to the stack
