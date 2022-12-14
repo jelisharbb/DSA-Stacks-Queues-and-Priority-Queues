@@ -12,7 +12,10 @@ messages = PriorityQueue()
 messages.enqueueWithPriority(IMPORTANT, "Windshield wipers turned on")
 messages.enqueueWithPriority(NEUTRAL, "Radio station tuned in")
 messages.enqueueWithPriority(CRITICAL, "Brake pedal depressed")
-messages.enqueueWithPriority(IMPORTANT, "Windshield wipers turned on")
+messages.enqueueWithPriority(IMPORTANT, "Hazard lights turned on")
 
-# supposedly dequeue elements based on their priority
+# dequeue elements based on their priority
+print(messages.dequeue())
+print(messages.dequeue())
+print(messages.dequeue())
 print(messages.dequeue())
