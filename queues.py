@@ -37,8 +37,8 @@ class PriorityQueue:
 
     # method to enqueue elements based on their priority using heappush
     def enqueueWithPriority(self, priority, value):
-        heappush(self._elements, (priority, value))
+        heappush(self._elements, (-priority, value))
 
     # method to dequeue elements using heappop
     def dequeue(self):
-        return heappop(self._elements)
+        return heappop(self._elements)[1]
