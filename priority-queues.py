@@ -9,10 +9,10 @@ NEUTRAL = 1
 messages = PriorityQueue()
 
 # enqueue elements
-messages.enqueueWithPriority(IMPORTANT, "Windshield wipers turned on")
-messages.enqueueWithPriority(NEUTRAL, "Radio station tuned in")
-messages.enqueueWithPriority(CRITICAL, "Brake pedal depressed")
-messages.enqueueWithPriority(IMPORTANT, "Hazard lights turned on")
+messages.enqueue_with_priority(IMPORTANT, "Windshield wipers turned on")
+messages.enqueue_with_priority(NEUTRAL, "Radio station tuned in")
+messages.enqueue_with_priority(CRITICAL, "Brake pedal depressed")
+messages.enqueue_with_priority(IMPORTANT, "Hazard lights turned on")
 
 # dequeue elements based on their priority
 print(messages.dequeue())
