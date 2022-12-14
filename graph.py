@@ -16,7 +16,7 @@ class City(NamedTuple):
         return cls(
             name = attrs["xlabel"],
             country = attrs["country"],
-            year = int(attrs["years"]) or None,
+            year = int(attrs["year"]) or None,
             latitude = float(attrs["latitude"]),
             longitude = float(attrs["longitude"]),
         )
