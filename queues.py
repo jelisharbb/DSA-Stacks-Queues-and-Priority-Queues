@@ -3,12 +3,8 @@ from collections import deque
 from heapq import heappop, heappush
 from itertools import count
 
-class Queue:
-    # for initializing/preparing the deque
-    def __init__(self, *elements):
-        self._elements = deque(elements)
-
-    # for getting the length of deque
+class IterableMixin:
+    # for getting the length of elements
     def __len__(self):
         return len(self._elements)
 
@@ -16,6 +12,11 @@ class Queue:
     def __iter__(self):
         while len(self) > 0:
             yield self.dequeue()
+
+class Queue(IterableMixin):
+    # for initializing/preparing the deque
+    def __init__(self, *elements):
+        self._elements = deque(elements)
 
     # for adding element
     def enqueue(self, element):
@@ -31,7 +32,7 @@ class Stack(Queue):
     def dequeue(self):
         return self._elements.pop()
 
-class PriorityQueue:
+class PriorityQueue(IterableMixin):
     # defined a heap elements using list
     def __init__(self):
         self._elements = []
