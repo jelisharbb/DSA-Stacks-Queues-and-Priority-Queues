@@ -21,6 +21,11 @@ print(nodes["london"])
 print(graph)
 
 print(f"\nNeighbors:")
-# identifies the immediate neighbors of the specified city using .neighbors() method
+# loop that identifies the immediate neighbors of the specified city using .neighbors() method
 for neighbor in graph.neighbors(nodes["london"]):
     print(neighbor.name)
+
+print(f"\nNeighbors together with their respective distances:")
+# loop that identifies the immediate neighbors of the specified city and their respective distances
+for neighbor, weights in graph[nodes["london"]].items():
+    print(weights["distance"], neighbor.name)
