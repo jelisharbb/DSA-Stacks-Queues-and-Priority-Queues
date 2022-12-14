@@ -1,3 +1,4 @@
+# get the Queue class from queues.py
 from queues import Queue
 
 fifo = Queue()
