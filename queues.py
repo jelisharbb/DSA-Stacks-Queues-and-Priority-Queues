@@ -1,6 +1,7 @@
 # modules to be used
 from collections import deque
 from heapq import heappop, heappush
+from itertools import count
 
 class Queue:
     # for initializing/preparing the deque
@@ -34,11 +35,13 @@ class PriorityQueue:
     # defined a heap elements using list
     def __init__(self):
         self._elements = []
+        self._counter = count()
 
     # method to enqueue elements based on their priority using heappush
     def enqueueWithPriority(self, priority, value):
-        heappush(self._elements, (-priority, value))
+        element = (-priority, next(self._counter), value)
+        heappush(self._elements, element)
 
     # method to dequeue elements using heappop
     def dequeue(self):
-        return heappop(self._elements)[1]
+        return heappop(self._elements)[-1]
