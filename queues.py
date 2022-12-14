@@ -41,7 +41,7 @@ class PriorityQueue(IterableMixin):
         self._counter = count() # this solves the sort instability. whenever you enqueue a value, the counter increments and retains its current state in a tuple pushed onto the heap
 
     # method to enqueue elements based on their priority using heappush
-    def enqueueWithPriority(self, priority, value):
+    def enqueue_with_priority(self, priority, value):
         element = (-priority, next(self._counter), value) # negate the priority to reverse the order
         heappush(self._elements, element)
 
