@@ -52,9 +52,7 @@ def breadth_first_traverse(graph, source, order_by =  None):
 
 # this function builds on top of the first one by looping over the yielded nodes, and stops once the current node meets the expected criteria. if none of the nodes make the predicate truthy, then the function implicitly returns None
 def breadth_first_search(graph, source, predicate, order_by =  None):
-    for node in breadth_first_traverse(graph, source,  order_by):
-        if predicate(node):
-            return node
+    return search(breadth_first_traverse, graph, source, predicate, order_by)
 
 # this function takes another node as an argument and optionally lets you order the neighbors using a custom strategy
 def shortest_path(graph, source, destination, order_by =  None):
@@ -121,3 +119,13 @@ def recursive_depth_first_traverse(graph, source, order_by=None):
                 yield from visit(neighbor)
 
     return visit(source)
+
+# thi function loops over the yielded nodes, and stops once the current node meets the expected criteria
+def depth_first_search(graph, source, predicate, order_by=None):
+    return search(depth_first_traverse, graph, source, predicate, order_by)
+
+# this function traverse with corresponding strategy
+def search(traverse, graph, source, predicate, order_by=None):
+    for node in traverse(graph, source, order_by):
+        if predicate(node):
+            return node
