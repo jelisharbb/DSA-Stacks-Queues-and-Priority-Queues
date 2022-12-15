@@ -73,3 +73,14 @@ def order(neighbors):
     def by_latitude(city):
         return city.latitude
     return iter(sorted(neighbors, key = by_latitude, reverse = True))
+
+print("\nSorted by higher latitude:")
+# iterate over the cities based on their latitude
+for node in nx.bfs_tree(graph, nodes["edinburgh"], sort_neighbors = order):
+    print ("📍", node.name)
+    # finds a city that has a year within the 20th century
+    if is_twentieth_century(node.year):
+        print("Found:", node.name, node.year)
+        break
+else:
+    print("Not found")
