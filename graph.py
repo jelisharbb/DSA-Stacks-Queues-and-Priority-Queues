@@ -92,7 +92,7 @@ def retrace(previous, source, destination):
 def connected(graph, source, destination):
     return shortest_path(graph, source, destination) is not None
 
-# this function takes a networkx graph and the source node as arguments while yielding nodes visited with the depth-first traversal
+# this function takes a networkx graph and the source node as arguments using depth-first traversal. this doesn't mark the source node as visited
 def depth_first_traverse(graph, source, order_by=None):
     stack = Stack(source)
     visited = set() #  visited nodes are initialized in this set
@@ -105,3 +105,19 @@ def depth_first_traverse(graph, source, order_by=None):
                 neighbors.sort(key=order_by)
             for neighbor in reversed(neighbors): # for loop that iterates over the neighbors in reverse order, and enqueue them in the stack
                 stack.enqueue(neighbor)
+
+# by function, this avoid maintaining a stack of your own, as Python pushes each function call on a stack behind the scenes
+def recursive_depth_first_traverse(graph, source, order_by=None):
+    visited = set()
+
+    def visit(node):
+        yield node
+        visited.add(node)
+        neighbors = list(graph.neighbors(node))
+        if order_by: # condition that allows sorting the neighbors in a particular order
+            neighbors.sort(key=order_by)
+        for neighbor in neighbors: # iterates over the neighbors
+            if neighbor not in visited:
+                yield from visit(neighbor)
+
+    return visit(source)
