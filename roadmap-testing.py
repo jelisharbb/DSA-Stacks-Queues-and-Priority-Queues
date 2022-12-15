@@ -112,6 +112,7 @@
 import networkx as nx
 from graph import City, load_graph
 from graph import shortest_path
+from graph import connected
 
 # read the DOT file and get the details
 nodes, graph = load_graph("roadmap.dot", City.from_dict)
@@ -133,12 +134,11 @@ def by_latitude(city):
     return -city.latitude
 
 # path that prefers neighbors with a higher latitude
-print()
 " → ".join(
-city.name
-for city in shortest_path(graph, city1, city2, by_latitude)
-)
+    city.name
+    for city in shortest_path(graph, city1, city2, by_latitude)
+    )
 
-# this function tells whether two nodes remain connected or not
-def connected(graph, source, destination):
-    return shortest_path(graph, source, destination) is not None
+# 
+print(connected(graph, nodes["belfast"], nodes["glasgow"]))
+print(connected(graph, nodes["belfast"], nodes["derry"]))
