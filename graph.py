@@ -54,3 +54,21 @@ def breadth_first_search(graph, source, predicate, order_by =  None):
     for node in breadth_first_traverse(graph, source,  order_by):
         if predicate(node):
             return node
+
+# this function takes another node as an argument and optionally lets you order the neighbors using a custom strategy
+def shortest_path(graph, source, destination, order_by =  None):
+    queue = Queue(source)
+    visited = {source}
+    previous = {} # stores the previous path taken
+    while queue:
+        node = queue.dequeue()
+        neighbors = list(graph.neighbors(node))
+        if order_by: # condition that allows sorting the neighbors in a particular order
+            neighbors.sort(key = order_by)
+        for neighbor in neighbors: # for loop that iterates over the neighbors
+            if neighbor not in visited: # if statement to check unvisited neighboring cities, then add and enqueue them
+                visited.add(neighbor)
+                queue.enqueue(neighbor)
+                previous[neighbor] = node
+                if neighbor == destination:
+                    return retrace(previous, source, destination)
