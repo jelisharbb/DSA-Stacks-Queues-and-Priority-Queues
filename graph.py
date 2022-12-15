@@ -1,7 +1,7 @@
 # module, and class to be used
 from typing import NamedTuple
 import networkx as nx
-from queues import Queue
+from queues import Queue, Stack
 from collections import deque
 
 # defined a class that defines the data types of the following class attribute
@@ -91,3 +91,17 @@ def retrace(previous, source, destination):
 # this function tells whether two nodes remain connected or not
 def connected(graph, source, destination):
     return shortest_path(graph, source, destination) is not None
+
+# this function takes a networkx graph and the source node as arguments while yielding nodes visited with the depth-first traversal
+def depth_first_traverse(graph, source, order_by=None):
+    stack = Stack(source)
+    visited = set() #  visited nodes are initialized in this set
+    while stack:
+        if (node := stack.dequeue()) not in visited:
+            yield node
+            visited.add(node)
+            neighbors = list(graph.neighbors(node))
+            if order_by: # condition that allows sorting the neighbors in a particular order
+                neighbors.sort(key=order_by)
+            for neighbor in reversed(neighbors): # for loop that iterates over the neighbors in reverse order, and enqueue them in the stack
+                stack.enqueue(neighbor)
