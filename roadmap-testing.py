@@ -87,21 +87,38 @@
 
 # --------- test 4: breadth-first search ------------
 
-# import classes to be used
-from graph import City, load_graph, breadth_first_traverse, breadth_first_search as bfs
+# # import classes to be used
+# from graph import City, load_graph, breadth_first_traverse, breadth_first_search as bfs
 
-# function that checks city with a year within 20th century
-def is_twentieth_century(city):
-    return city.year and 1901 <= city.year <= 2000
+# # function that checks city with a year within 20th century
+# def is_twentieth_century(city):
+#     return city.year and 1901 <= city.year <= 2000
 
-# call the load_graph class method, stored the results in two variables
+# # call the load_graph class method, stored the results in two variables
+# nodes, graph = load_graph("roadmap.dot", City.from_dict)
+
+# # finds a city with a year within 20th century
+# city =  bfs(graph, nodes["edinburgh"], is_twentieth_century)
+# print(f"City within 20th century:", city.name)
+
+# # loop that iterates over the neighboring city of the specified city
+# print("Neighboring cities:")
+# for city in breadth_first_traverse(graph, nodes["edinburgh"]):
+#     print(city.name)
+
+# -------- test 5: shortest path using BFS -----------
+
+# import modules and class
+import networkx as nx
+from graph import City, load_graph
+
+# read the DOT file and get the details
 nodes, graph = load_graph("roadmap.dot", City.from_dict)
 
-# finds a city with a year within 20th century
-city =  bfs(graph, nodes["edinburgh"], is_twentieth_century)
-print(f"City within 20th century:", city.name)
+# get the nodes of the two cities
+city1 = nodes["aberdeen"]
+city2 = nodes["perth"]
 
-# loop that iterates over the neighboring city of the specified city
-print("Neighboring cities:")
-for city in breadth_first_traverse(graph, nodes["edinburgh"]):
-    print(city.name)
+# for loop that enumerates the shortest paths between two cities and print them onto the screen
+for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
+    print(f"{i}.", " → ".join(city.name for city in path))
