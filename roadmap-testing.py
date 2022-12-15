@@ -176,3 +176,11 @@ from graph import (
 # function that checks city with a year within 20th century
 def is_twentieth_century(city):
     return city.year and 1901 <= city.year <= 2000
+
+nodes, graph = load_graph("roadmap.dot", City.from_dict) # read the DOT file and get the details
+city = dfs(graph, nodes["edinburgh"], is_twentieth_century) # identifies the neighboring city that has year within 20th century
+print(city.name)
+
+# iterates over the neighboring cities of the specified city using DFS
+for city in depth_first_traverse(graph, nodes["edinburgh"]):
+    print(city.name)
