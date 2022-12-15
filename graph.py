@@ -36,18 +36,21 @@ def load_graph(filename, node_factory):
     ) # returns the mapping and a new graph comprising nodes and weighted edges\
 
 # this function takes a networkx graph and the source node as arguments while yielding nodes visited with the breadth-first traversal
-def breadth_first_traverse(graph, source):
+def breadth_first_traverse(graph, source, order_by =  None):
     queue = Queue(source)
     visited = {source}
     while queue:
         yield(node := queue.dequeue())
-        for neighbor in graph.neighbors(node): # for loop that iterates over the neighbors
+        neighbors = list(graph.neighbors(node))
+        if order_by: # condition that allows sorting the neighbors in a particular order
+            neighbors.sort(key = order_by)
+        for neighbor in neighbors: # for loop that iterates over the neighbors
             if neighbor not in visited: # if statement to check unvisited neighboring cities, then add and enqueue them
                 visited.add(neighbor)
                 queue.enqueue(neighbor)
 
 # this function builds on top of the first one by looping over the yielded nodes, and stops once the current node meets the expected criteria. if none of the nodes make the predicate truthy, then the function implicitly returns None
-def breadth_first_search(graph, source, predicate):
-    for node in breadth_first_traverse(graph, source):
+def breadth_first_search(graph, source, predicate, order_by =  None):
+    for node in breadth_first_traverse(graph, source,  order_by):
         if predicate(node):
             return node
