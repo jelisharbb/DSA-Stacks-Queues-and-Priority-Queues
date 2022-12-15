@@ -108,37 +108,47 @@
 
 # -------- test 5: shortest path using BFS -----------
 
-# import modules and class
+# # import modules and class
+# import networkx as nx
+# from graph import City, load_graph
+# from graph import shortest_path
+# from graph import connected
+
+# # read the DOT file and get the details
+# nodes, graph = load_graph("roadmap.dot", City.from_dict)
+
+# # get the nodes of the two cities
+# city1 = nodes["aberdeen"]
+# city2 = nodes["perth"]
+
+# # for loop that enumerates the shortest paths between two cities and print them onto the screen
+# for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
+#     print(f"{i}.", " → ".join(city.name for city in path))
+
+# # displays a path following the natural order of neighbors from the DOT file
+# print()
+# " → ".join(city.name for city in shortest_path(graph, city1, city2))
+
+# # function that gets the latitude of the city in reverse order
+# def by_latitude(city):
+#     return -city.latitude
+
+# # path that prefers neighbors with a higher latitude
+# " → ".join(
+#     city.name
+#     for city in shortest_path(graph, city1, city2, by_latitude)
+#     )
+
+# # this returns True or False if two nodes are connected or not respectively
+# print(connected(graph, nodes["belfast"], nodes["glasgow"]))
+# print(connected(graph, nodes["belfast"], nodes["derry"]))
+
+# -------- test 6: depth-first search  -----------
+
+# import modules and classes to be used
 import networkx as nx
 from graph import City, load_graph
-from graph import shortest_path
-from graph import connected
 
-# read the DOT file and get the details
-nodes, graph = load_graph("roadmap.dot", City.from_dict)
-
-# get the nodes of the two cities
-city1 = nodes["aberdeen"]
-city2 = nodes["perth"]
-
-# for loop that enumerates the shortest paths between two cities and print them onto the screen
-for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
-    print(f"{i}.", " → ".join(city.name for city in path))
-
-# displays a path following the natural order of neighbors from the DOT file
-print()
-" → ".join(city.name for city in shortest_path(graph, city1, city2))
-
-# function that gets the latitude of the city in reverse order
-def by_latitude(city):
-    return -city.latitude
-
-# path that prefers neighbors with a higher latitude
-" → ".join(
-    city.name
-    for city in shortest_path(graph, city1, city2, by_latitude)
-    )
-
-# 
-print(connected(graph, nodes["belfast"], nodes["glasgow"]))
-print(connected(graph, nodes["belfast"], nodes["derry"]))
+# function that checks city with a year within 20th century
+def is_twentieth_century(year):
+   return year and 1901 <= year <= 2000
