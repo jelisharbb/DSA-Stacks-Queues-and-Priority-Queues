@@ -56,8 +56,9 @@ def is_twentieth_century(year):
 # call the load_graph class method, then stored the results in two variables
 nodes, graph = load_graph("roadmap.dot", City.from_dict)
 
+print()
 # loop that iterate over the neighbors of the specified city using breadth-first search
-for node in nx.bfs_tree(graph, nodes["truro"]):
+for node in nx.bfs_tree(graph, nodes["edinburgh"]):
     print ("📍", node.name)
     # finds a city that has a year within the 20th century
     if is_twentieth_century(node.year):
@@ -65,3 +66,10 @@ for node in nx.bfs_tree(graph, nodes["truro"]):
         break
 else:
     print("Not found")
+
+# function that sorts the city based on their latitude
+def order(neighbors):
+    # function that gets the latitude of the cities
+    def by_latitude(city):
+        return city.latitude
+    return iter(sorted(neighbors, key = by_latitude, reverse = True))
