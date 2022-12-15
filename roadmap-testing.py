@@ -127,3 +127,14 @@ for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
 # displays a path following the natural order of neighbors from the DOT file
 print()
 " → ".join(city.name for city in shortest_path(graph, city1, city2))
+
+# function that gets the latitude of the city in reverse order
+def by_latitude(city):
+    return -city.latitude
+
+# path that prefers neighbors with a higher latitude
+print()
+" → ".join(
+city.name
+for city in shortest_path(graph, city1, city2, by_latitude)
+)
