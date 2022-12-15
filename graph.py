@@ -87,3 +87,7 @@ def retrace(previous, source, destination):
 
     path.appendleft(source)
     return list(path)
+
+# this function tells whether two nodes remain connected or not
+def connected(graph, source, destination):
+    return shortest_path(graph, source, destination) is not None
