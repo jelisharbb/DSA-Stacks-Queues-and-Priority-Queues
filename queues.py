@@ -1,7 +1,9 @@
 # modules to be used
 from collections import deque
-from heapq import heappop, heappush
+from dataclasses import dataclass
+from heapq import heappop, heappush, heapify
 from itertools import count
+from typing import Any
 
 class IterableMixin:
     # make the class compatible with the len() function
@@ -48,3 +50,11 @@ class PriorityQueue(IterableMixin):
     # method to dequeue elements using heappop
     def dequeue(self):
         return heappop(self._elements)[-1] # -1 index is used for accessing the last component the tuple
+
+# defines the data type of the class attributes
+@dataclass(order=True)
+class Element:
+    priority: float
+    count: int
+    value: Any
+
