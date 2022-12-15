@@ -1,6 +1,7 @@
-# module to be used
+# module, and class to be used
 from typing import NamedTuple
 import networkx as nx
+from queues import Queue
 
 # defined a class that defines the data types of the following class attribute
 class City(NamedTuple):
@@ -32,4 +33,21 @@ def load_graph(filename, node_factory):
     return nodes, nx.Graph (
         (nodes[name1], nodes[name2], weights)
         for name1, name2, weights in graph.edges(data = True)
-    ) # returns the mapping and a new graph comprising nodes and weighted edges
+    ) # returns the mapping and a new graph comprising nodes and weighted edges\
+
+# this function takes a networkx graph and the source node as arguments while yielding nodes visited with the breadth-first traversal
+def breadth_first_traverse(graph, source):
+    queue = Queue(source)
+    visited = {source}
+    while queue:
+        yield(node := queue.dequeue())
+        for neighbor in graph.neighbors(node): # for loop that iterates over the neighbors
+            if neighbor not in visited: # if statement to check unvisited neighboring cities, then add and enqueue them
+                visited.add(neighbor)
+                queue.enqueue(neighbor)
+
+# this function builds on top of the first one by looping over the yielded nodes, and stops once the current node meets the expected criteria. if none of the nodes make the predicate truthy, then the function implicitly returns None
+def breadth_first_search(graph, source, predicate):
+    for node in breadth_first_traverse(graph, source):
+        if predicate(node):
+            return node
