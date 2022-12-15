@@ -138,3 +138,7 @@ print()
 city.name
 for city in shortest_path(graph, city1, city2, by_latitude)
 )
+
+# this function tells whether two nodes remain connected or not
+def connected(graph, source, destination):
+    return shortest_path(graph, source, destination) is not None
