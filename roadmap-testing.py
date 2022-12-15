@@ -111,6 +111,7 @@
 # import modules and class
 import networkx as nx
 from graph import City, load_graph
+from graph import shortest_path
 
 # read the DOT file and get the details
 nodes, graph = load_graph("roadmap.dot", City.from_dict)
@@ -122,3 +123,7 @@ city2 = nodes["perth"]
 # for loop that enumerates the shortest paths between two cities and print them onto the screen
 for i, path in enumerate(nx.all_shortest_paths(graph, city1, city2), 1):
     print(f"{i}.", " → ".join(city.name for city in path))
+
+# displays a path following the natural order of neighbors from the DOT file
+print()
+" → ".join(city.name for city in shortest_path(graph, city1, city2))
