@@ -11,6 +11,35 @@ QUEUE_TYPES = {
     "heap": PriorityQueue
 }
 
+# products that the producers will pick at random and pretend to be working on
+PRODUCTS = (
+    ":balloon:",
+    ":cookie:",
+    ":crystal_ball:",
+    ":diving_mask:",
+    ":flashlight:",
+    ":gem:",
+    ":gift:",
+    ":kite:",
+    ":party_popper:",
+    ":postal_horn:",
+    ":ribbon:",
+    ":rocket:",
+    ":shaved_ice:",
+    ":shortcake:",
+    ":teddy_bear:",
+    ":thread:",
+    ":umbrella_with_rain_drops:",
+    ":unicorn_face:",
+    ":violin:",
+    ":volcano:",
+    ":waning_crescent_moon:",
+    ":water_wave:",
+    ":yellow_heart:",
+    ":yo-yo:",
+    ":zombie:",
+)
+
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
@@ -31,3 +60,4 @@ if __name__ == "__main__":
         main(parse_args())
     except KeyboardInterrupt:
         pass
+
