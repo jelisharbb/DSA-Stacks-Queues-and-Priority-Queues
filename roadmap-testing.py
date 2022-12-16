@@ -197,3 +197,11 @@ nodes, graph = load_graph("roadmap.dot", City.from_dict)
 # get the neighboring cities of the two cities
 city1 = nodes["london"]
 city2 = nodes["edinburgh"]
+
+# get the distance between nodes
+def distance(weights):
+    return float(weights["distance"])
+
+# iterates the cities containing the shortest path
+for city in dijkstra_shortest_path(graph, city1, city2, distance):
+    print(city.name)
