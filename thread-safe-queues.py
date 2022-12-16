@@ -2,7 +2,7 @@
 
 # import modules
 import argparse, threading
-from random import randint
+from random import choice, randint
 from time import sleep
 from itertools import zip_longest
 
@@ -84,7 +84,13 @@ class Worker(threading.Thread):
             sleep(delay / 100)
             self.progress += 1
 
-# 
+#
+class Producer(Worker):
+    def __init__(self, speed, buffer, products):
+        super().__init__(speed, buffer)
+        self.products = products
+
+# for displaying the overall processes of the queue
 class View:
     def __init__(self, buffer, producers, consumers):
         self.buffer = buffer
@@ -125,7 +131,7 @@ class View:
             rows.append(Columns([left_panel, right_panel], width=40))
         return Group(*rows)
 
-    # 
+    # for padding and alignment of the worker's progress
     def panel(self, worker, title):
         if worker is None:
             return ""
