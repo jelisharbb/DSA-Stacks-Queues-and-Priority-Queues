@@ -1,7 +1,11 @@
 # this program implements the classic multi-producer, multi-consumer problem using Python’s thread-safe queues
 
-# import modules and classes
+# import modules
 import argparse, threading
+from random import randint
+from time import sleep
+
+# import classes
 from queue import LifoQueue, PriorityQueue, Queue
 
 # store the imported classes in a dictionary
@@ -49,6 +53,13 @@ class Worker(threading.Thread):
         self.product = None
         self.working = False
         self.progress = 0
+
+    @property
+    # returns a string with either the product’s name and the progress of work or a generic message indicating that the worker is currently idle
+    def state(self):
+        if self.working:
+            return f"{self.product} ({self.progress}%)"
+        return ":zzz: Idle"
 
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
