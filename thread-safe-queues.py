@@ -5,6 +5,8 @@ import argparse, threading
 from random import choice, randint
 from time import sleep
 from itertools import zip_longest
+from dataclasses import dataclass, field
+from enum import IntEnum
 
 from rich.align import Align
 from rich.columns import Columns
@@ -21,6 +23,15 @@ QUEUE_TYPES = {
     "lifo": LifoQueue,
     "heap": PriorityQueue
 }
+
+# class for a synchronized priority queue or a heap
+@dataclass(order=True)
+class Product:
+    priority: int
+    label: str = field(compare=False)
+
+    def __str__(self):
+        return self.label
 
 # products that the producers will pick at random and pretend to be working on
 PRODUCTS = (
