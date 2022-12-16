@@ -24,3 +24,10 @@ def parse_args():
     parser.add_argument("-ps", "--producer-speed", type=int, default=1)
     parser.add_argument("-cs", "--consumer-speed", type=int, default=1)
     return parser.parse_args()
+
+# this statement is a way to store code that should only run when your file is executed as a script
+if __name__ == "__main__":
+    try:
+        main(parse_args())
+    except KeyboardInterrupt:
+        pass
