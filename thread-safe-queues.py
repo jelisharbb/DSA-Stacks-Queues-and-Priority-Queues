@@ -84,20 +84,36 @@ class Worker(threading.Thread):
             sleep(delay / 100)
             self.progress += 1
 
-#
+# 
 class View:
     def __init__(self, buffer, producers, consumers):
         self.buffer = buffer
         self.producers = producers
         self.consumers = consumers
 
-    # 
+    # function that animates the acting products (emojis)
     def animate(self):
         with Live(
             self.render(), screen=True, refresh_per_second=10
         ) as live:
             while True:
                 live.update(self.render())
+
+    # function that will display the type of queue that the user chose
+    def render(self):
+
+        match self.buffer:
+            case PriorityQueue():
+                title = "Priority Queue"
+                products = map(str, reversed(list(self.buffer.queue)))
+            case LifoQueue():
+                title = "Stack"
+                products = list(self.buffer.queue)
+            case Queue():
+                title = "Queue"
+                products = reversed(list(self.buffer.queue))
+            case _:
+                title = products = ""
 
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
