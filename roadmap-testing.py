@@ -203,5 +203,15 @@ def distance(weights):
     return float(weights["distance"])
 
 # iterates the cities containing the shortest path
+print("\nShortest path using Dijkstra algorithm:")
 for city in dijkstra_shortest_path(graph, city1, city2, distance):
+    print(city.name)
+
+# get the distance between nodes
+def weight(node1, node2, weights):
+    return distance(weights)
+
+# iterates the cities containing the shortest path
+print("\nShortest path using Networkx implementation:")
+for city in nx.dijkstra_path(graph, city1, city2, weight):
     print(city.name)
