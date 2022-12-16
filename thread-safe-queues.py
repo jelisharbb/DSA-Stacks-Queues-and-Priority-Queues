@@ -161,13 +161,21 @@ class View:
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
+
+    # producers thread
     producers = [
         Producer(args.producer_speed, buffer, PRODUCTS)
         for _ in range(args.producers)
     ]
+    # consumers thread
     consumers = [
         Consumer(args.consumer_speed, buffer) for _ in range(args.consumers)
     ]
+
+    for producer in producers: # loop to launch the producer
+        producer.start()
+    for consumer in consumers: # loop to launch the consumer
+        consumer.start()
 
 # this function defines and add the default value for the queues
 def parse_args():
