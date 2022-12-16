@@ -177,6 +177,9 @@ def main(args):
     for consumer in consumers: # loop to launch the consumer
         consumer.start()
 
+    view = View(buffer, producers, consumers)
+    view.animate() # to display and animate the processes
+
 # this function defines and add the default value for the queues
 def parse_args():
     parser = argparse.ArgumentParser()
