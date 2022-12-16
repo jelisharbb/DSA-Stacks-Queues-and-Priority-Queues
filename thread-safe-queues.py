@@ -4,6 +4,13 @@
 import argparse, threading
 from random import randint
 from time import sleep
+from itertools import zip_longest
+
+from rich.align import Align
+from rich.columns import Columns
+from rich.console import Group
+from rich.live import Live
+from rich.panel import Panel
 
 # import classes
 from queue import LifoQueue, PriorityQueue, Queue
