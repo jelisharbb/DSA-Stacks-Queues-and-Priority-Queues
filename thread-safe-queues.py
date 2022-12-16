@@ -68,6 +68,15 @@ class Worker(threading.Thread):
         self.progress = 0
         sleep(randint(1, 3))
 
+    # picks a random delay in seconds adjusted to the worker’s speed and progresses through the work
+    def simulate_work(self):
+        self.working = True
+        self.progress = 0
+        delay = randint(1, 1 + 15 // self.speed)
+        for _ in range(100):
+            sleep(delay / 100)
+            self.progress += 1
+
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
