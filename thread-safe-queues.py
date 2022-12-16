@@ -84,6 +84,13 @@ class Worker(threading.Thread):
             sleep(delay / 100)
             self.progress += 1
 
+#
+class View:
+    def __init__(self, buffer, producers, consumers):
+        self.buffer = buffer
+        self.producers = producers
+        self.consumers = consumers
+
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
