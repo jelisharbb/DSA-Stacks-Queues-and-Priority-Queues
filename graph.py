@@ -131,12 +131,24 @@ def search(traverse, graph, source, predicate, order_by=None):
         if predicate(node):
             return node
 
-# 
+# function that finds the shortest path using dijkstra algorithm
 def dijkstra_shortest_path(graph, source, destination, weight_factory):
     previous = {}
     visited = set()
 
     unvisited = MutableMinHeap()
     for node in graph.nodes:
-        unvisited[node] = infinity
-    unvisited[source] = 0
+        unvisited[node] = infinity # since the distance to all destination cities is unknown, assign an infinite cost to each unvisited city
+    unvisited[source] = 0 # except for the source node/starting point
+
+    while unvisited: # while loop for finding the cheaper path to a neighbor
+        visited.add(node := unvisited.dequeue())
+        for neighbor, weights in graph[node].items():
+            if neighbor not in visited:
+                weight = weight_factory(weights)
+                new_distance = unvisited[node] + weight
+                if new_distance < unvisited[neighbor]:
+                    unvisited[neighbor] = new_distance
+                    previous[neighbor] = node
+
+    return retrace(previous, source, destination)
