@@ -91,6 +91,14 @@ class View:
         self.producers = producers
         self.consumers = consumers
 
+    # 
+    def animate(self):
+        with Live(
+            self.render(), screen=True, refresh_per_second=10
+        ) as live:
+            while True:
+                live.update(self.render())
+
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
     buffer = QUEUE_TYPES[args.queue]()
