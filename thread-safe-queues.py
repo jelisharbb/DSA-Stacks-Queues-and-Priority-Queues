@@ -1,7 +1,7 @@
 # this program implements the classic multi-producer, multi-consumer problem using Python’s thread-safe queues
 
 # import modules and classes
-import argparse
+import argparse, threading
 from queue import LifoQueue, PriorityQueue, Queue
 
 # store the imported classes in a dictionary
@@ -39,6 +39,16 @@ PRODUCTS = (
     ":yo-yo:",
     ":zombie:",
 )
+
+# the worker class extends the threading.Thread class and configures itself as a daemon thread so that its instances won’t prevent the program from exiting when the main thread finishes
+class Worker(threading.Thread):
+    def __init__(self, speed, buffer):
+        super().__init__(daemon=True)
+        self.speed = speed
+        self.buffer = buffer
+        self.product = None
+        self.working = False
+        self.progress = 0
 
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
