@@ -84,11 +84,19 @@ class Worker(threading.Thread):
             sleep(delay / 100)
             self.progress += 1
 
-#
+# this class works in an infinite loop, choosing a random product and simulating some work before putting that product onto the queue, called a buffer. it then goes to sleep for a random period, and when it wakes up again, the process repeats.
 class Producer(Worker):
     def __init__(self, speed, buffer, products):
         super().__init__(speed, buffer)
         self.products = products
+
+    # loop for producing products
+    def run(self):
+        while True:
+            self.product = choice(self.products)
+            self.simulate_work()
+            self.buffer.put(self.product)
+            self.simulate_idle()
 
 # for displaying the overall processes of the queue
 class View:
