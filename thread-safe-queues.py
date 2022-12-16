@@ -98,6 +98,15 @@ class Producer(Worker):
             self.buffer.put(self.product)
             self.simulate_idle()
 
+# this class also works in an infinite loop, waiting for a product to appear in the queue
+class Consumer(Worker):
+    def run(self):
+        while True:
+            self.product = self.buffer.get() # .get() method keep the consumer thread stopped and waiting until there’s at least one product in the queue
+            self.simulate_work()
+            self.buffer.task_done()
+            self.simulate_idle()
+
 # for displaying the overall processes of the queue
 class View:
     def __init__(self, buffer, producers, consumers):
