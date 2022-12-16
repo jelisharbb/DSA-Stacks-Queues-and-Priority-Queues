@@ -197,3 +197,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
 
+# command for running and customizing the queue
+# python thread-safe-queues.py --producers 3  --consumers 2  --producer-speed 2  --consumer-speed 2  --queue fifo
