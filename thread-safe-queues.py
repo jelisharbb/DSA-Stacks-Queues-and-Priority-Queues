@@ -33,6 +33,11 @@ class Product:
     def __str__(self):
         return self.label
 
+class Priority(IntEnum):
+    HIGH = 1
+    MEDIUM = 2
+    LOW = 3
+
 # products that the producers will pick at random and pretend to be working on
 PRODUCTS = (
     ":balloon:",
