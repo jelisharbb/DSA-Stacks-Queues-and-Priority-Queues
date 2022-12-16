@@ -99,9 +99,10 @@ class View:
             while True:
                 live.update(self.render())
 
-    # function that will display the type of queue that the user chose
+    # function for
     def render(self):
 
+        # condition statement that will display the type of queue that the user chose
         match self.buffer:
             case PriorityQueue():
                 title = "Priority Queue"
@@ -114,6 +115,15 @@ class View:
                 products = reversed(list(self.buffer.queue))
             case _:
                 title = products = ""
+
+        # for displaying the above row, and panels below
+        rows = [Panel(f"[bold]{title}:[/] {', '.join(products)}", width=82)]
+        pairs = zip_longest(self.producers, self.consumers)
+        for i, (producer, consumer) in enumerate(pairs, 1):
+            left_panel = self.panel(producer, f"Producer {i}")
+            right_panel = self.panel(consumer, f"Consumer {i}")
+            rows.append(Columns([left_panel, right_panel], width=40))
+        return Group(*rows)
 
 # this function is the entry point, which receives the parsed arguments supplied by parse_args()
 def main(args):
